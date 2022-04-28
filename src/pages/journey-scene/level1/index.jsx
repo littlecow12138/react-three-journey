@@ -3,7 +3,7 @@ import { useGLTF, useTexture } from "@react-three/drei";
 const Level1 = (props) => {
   const bakedTexture = useTexture("/level1/baked1.jpg");
   const { nodes: levelModel1 } = useGLTF("/level1/baked1.glb");
-  console.log(levelModel1);
+  // console.log(levelModel1);
 
   return (
     <group dispose={null}>
