@@ -4,9 +4,11 @@ import { Loader } from "@react-three/drei";
 import "./App.css";
 import JourneyScene from "./pages/journey-scene";
 import { animated, useSpring } from "react-spring";
+import Catalog1 from "./pages/journey-scene/catalog1";
 
 function App() {
   const [catalogActive, setCatalogActive] = useState(false);
+  const [contentActive, setContentActive] = useState(false);
 
   const btnstyles = useSpring({ scale: catalogActive ? 0 : 1 });
   const btnstylesRe = useSpring({ scale: catalogActive ? 1 : 0 });
@@ -14,6 +16,7 @@ function App() {
   //   x: catalogActive ? "0%" : "100%",
   // });
   const [styles, setCatalogSpring] = useSpring(() => ({ x: "100%" }));
+  const [contentStyles, setContentSpring] = useSpring(() => ({ x: "100%" }));
 
   // click scene to wake catalog
   const handleSceneClick = () => {
@@ -39,10 +42,20 @@ function App() {
     setCatalogActive(false);
   };
 
+  const openContent = (item) => {
+    setContentSpring.start({
+      to: {
+        x: "0%",
+      },
+    });
+    setContentActive(true);
+  };
+
   return (
     <div className="App">
       <Suspense fallback={<Loader />}>
         <div className="container">
+          {/* canvas scene */}
           <div
             className="canvasWrapper"
             style={{ width: catalogActive ? "70%" : "100%" }}
@@ -71,7 +84,7 @@ function App() {
               <span>Click to explore</span>
             </animated.div>
           </div>
-
+          {/* catalog */}
           <animated.div
             className="catalog"
             style={{
@@ -79,7 +92,19 @@ function App() {
               ...styles,
             }}
           >
-            123
+            <Catalog1 openContent={(item) => openContent(item)} />
+          </animated.div>
+          {/* corresponding content */}
+          <animated.div className="Content" style={contentStyles}>
+            {/* render by routes */}
+            <div className="backBtn">
+              <div className="lines">
+                <span className="line line1"></span>
+                <span className="line line2"></span>
+                <span className="line line3"></span>
+                <span className="line line4"></span>
+              </div>
+            </div>
           </animated.div>
         </div>
       </Suspense>
