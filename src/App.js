@@ -14,6 +14,7 @@ import CanvasMd from "./docs/level1/Canvas.mdx";
 function App() {
   const [catalogActive, setCatalogActive] = useState(false);
   const [contentActive, setContentActive] = useState(false);
+  const [mDSource, setMDSource] = useState();
 
   const btnstyles = useSpring({ scale: catalogActive ? 0 : 1 });
   const btnstylesRe = useSpring({ scale: catalogActive ? 1 : 0 });
@@ -54,6 +55,11 @@ function App() {
       },
     });
     setContentActive(true);
+    fetch(CanvasMd).then((res) => {
+      res.text().then((content) => {
+        setMDSource(content);
+      });
+    });
   };
   // close content area
   const closeContent = () => {
@@ -120,7 +126,7 @@ function App() {
               </div>
             </div>
             <div className="mdContainer">
-              <ReactMarkdown children={CanvasMd} />
+              <ReactMarkdown children={mDSource} />
             </div>
           </animated.div>
         </div>
