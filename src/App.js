@@ -1,10 +1,15 @@
 import { Suspense, useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { Canvas } from "@react-three/fiber";
 import { Loader } from "@react-three/drei";
-import "./App.css";
-import JourneyScene from "./pages/journey-scene";
 import { animated, useSpring } from "react-spring";
+// style sheets
+import "./App.css";
+// three D scene
+import JourneyScene from "./pages/journey-scene";
+// catalog for level first
 import Catalog1 from "./pages/journey-scene/catalog1";
+import CanvasMd from "./docs/level1/Canvas.mdx";
 
 function App() {
   const [catalogActive, setCatalogActive] = useState(false);
@@ -41,7 +46,7 @@ function App() {
     });
     setCatalogActive(false);
   };
-
+  // open content area
   const openContent = (item) => {
     setContentSpring.start({
       to: {
@@ -49,6 +54,15 @@ function App() {
       },
     });
     setContentActive(true);
+  };
+  // close content area
+  const closeContent = () => {
+    setContentSpring.start({
+      to: {
+        x: "100%",
+      },
+    });
+    setContentActive(false);
   };
 
   return (
@@ -97,13 +111,16 @@ function App() {
           {/* corresponding content */}
           <animated.div className="Content" style={contentStyles}>
             {/* render by routes */}
-            <div className="backBtn">
+            <div className="backBtn" onClick={() => closeContent()}>
               <div className="lines">
                 <span className="line line1"></span>
                 <span className="line line2"></span>
                 <span className="line line3"></span>
                 <span className="line line4"></span>
               </div>
+            </div>
+            <div className="mdContainer">
+              <ReactMarkdown children={CanvasMd} />
             </div>
           </animated.div>
         </div>
