@@ -1,5 +1,8 @@
-import { Suspense, useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import { lazy, Suspense, useEffect, useState } from "react";
+// import ReactMarkdown from "react-markdown";
+// import remarkGfm from "remark-gfm";
+// import rehypeHighlight from "rehype-highlight";
+import { MDXProvider } from "@mdx-js/react";
 import { Canvas } from "@react-three/fiber";
 import { Loader } from "@react-three/drei";
 import { animated, useSpring } from "react-spring";
@@ -9,7 +12,14 @@ import "./App.css";
 import JourneyScene from "./pages/journey-scene";
 // catalog for level first
 import Catalog1 from "./pages/journey-scene/catalog1";
-import CanvasMd from "./docs/level1/Canvas.mdx";
+/* eslint-disable import/no-webpack-loader-syntax */
+// import CanvasMd from "!@mdx-js/loader!./docs/level1/Canvas.mdx";
+import { importMDX } from "mdx.macro";
+// import { compile } from "@mdx-js/mdx";
+
+const CanvasMd = lazy(() => importMDX("./docs/level1/Canvas.mdx"));
+
+console.log(CanvasMd);
 
 function App() {
   const [catalogActive, setCatalogActive] = useState(false);
@@ -126,7 +136,10 @@ function App() {
               </div>
             </div>
             <div className="mdContainer">
-              <ReactMarkdown children={mDSource} />
+              {/* <CanvasMd /> */}
+              <MDXProvider>
+                <CanvasMd />
+              </MDXProvider>
             </div>
           </animated.div>
         </div>

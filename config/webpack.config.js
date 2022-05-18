@@ -28,6 +28,9 @@ const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin"
 
 const createEnvironmentHash = require("./webpack/persistentCache/createEnvironmentHash");
 
+const rehypeKatex = import("rehype-katex");
+const remarkGfm = import("remark-gfm");
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 
@@ -559,10 +562,26 @@ module.exports = function (webpackEnv) {
             },
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
-            {
-              test: /\.(md|mdx)$/,
-              use: "raw-loader",
-            },
+            // {
+            //   test: /\.(md|mdx)$/,
+            //   use: "raw-loader",
+            // },
+            // {
+            //   test: /\.mdx?$/,
+            //   use: [
+            //     // babel-loader is optional
+            //     // { loader: "babel-loader", options: {} },
+            //     {
+            //       loader: "@mdx-js/loader",
+            //       /** @type {import('@mdx-js/loader').Options} */
+            //       options: {
+            //         /* jsxImportSource: …, otherOptions… */
+            //         remarkPlugins: [remarkGfm],
+            //         rehypePlugins: [rehypeKatex],
+            //       },
+            //     },
+            //   ],
+            // },
           ],
         },
       ].filter(Boolean),
