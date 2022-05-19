@@ -566,22 +566,22 @@ module.exports = function (webpackEnv) {
             //   test: /\.(md|mdx)$/,
             //   use: "raw-loader",
             // },
-            // {
-            //   test: /\.mdx?$/,
-            //   use: [
-            //     // babel-loader is optional
-            //     // { loader: "babel-loader", options: {} },
-            //     {
-            //       loader: "@mdx-js/loader",
-            //       /** @type {import('@mdx-js/loader').Options} */
-            //       options: {
-            //         /* jsxImportSource: …, otherOptions… */
-            //         remarkPlugins: [remarkGfm],
-            //         rehypePlugins: [rehypeKatex],
-            //       },
-            //     },
-            //   ],
-            // },
+            {
+              test: /\.mdx?$/,
+              use: [
+                // babel-loader is optional
+                // { loader: "babel-loader", options: {} },
+                {
+                  loader: "@mdx-js/loader",
+                  /** @type {import('@mdx-js/loader').Options} */
+                  options: {
+                    /* jsxImportSource: …, otherOptions… */
+                    remarkPlugins: [remarkGfm],
+                    rehypePlugins: [rehypeKatex],
+                  },
+                },
+              ],
+            },
           ],
         },
       ].filter(Boolean),

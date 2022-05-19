@@ -13,11 +13,7 @@ import JourneyScene from "./pages/journey-scene";
 // catalog for level first
 import Catalog1 from "./pages/journey-scene/catalog1";
 /* eslint-disable import/no-webpack-loader-syntax */
-// import CanvasMd from "!@mdx-js/loader!./docs/level1/Canvas.mdx";
-import { importMDX } from "mdx.macro";
-// import { compile } from "@mdx-js/mdx";
-
-const CanvasMd = lazy(() => importMDX("./docs/level1/Canvas.mdx"));
+import CanvasMd from "./docs/level1/Canvas.mdx";
 
 console.log(CanvasMd);
 
@@ -136,10 +132,7 @@ function App() {
               </div>
             </div>
             <div className="mdContainer">
-              {/* <CanvasMd /> */}
-              <MDXProvider>
-                <CanvasMd />
-              </MDXProvider>
+              <CanvasMd />
             </div>
           </animated.div>
         </div>
